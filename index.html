@@ -1,74 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geo Lookup Portal - Tanakpur</title>
-    <meta name="description" content="Lookup and navigate to customers using phone numbers and geolocation mapping for Tanakpur.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Geo Order & Route Tracker - Tanakpur</title>
 
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <!-- ✅ Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    crossorigin=""
+  />
 
-    <!-- Leaflet Routing Machine CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+  <!-- ✅ Leaflet Routing Machine CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"
+  />
 
-    <!-- Your custom CSS -->
-    <link rel="stylesheet" href="style.css">
+  <!-- ✅ Custom CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- ✅ Google Fonts (Inter) -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
+
+  <!-- ✅ QR Code Generator Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+
+  <!-- ✅ XLSX Library for Excel Parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
+
 <body>
-    <div class="app-container">
+  <div class="app-container">
 
-        <!-- Header -->
-        <header>
-            <h1>Geo Lookup Portal (Tanakpur)</h1>
-            <p class="subtitle">Search customers by mobile number & view location on map</p>
-        </header>
+    <!-- 🧭 HEADER SECTION -->
+    <header>
+      <h1>📍 Geo + Order Tracker (Tanakpur)</h1>
+      <p>Search customers, view routes, track your live location, and collect payments</p>
+    </header>
 
-        <!-- Input for Multiple Phone Numbers -->
-        <section class="input-box">
-            <textarea 
-                id="phoneNumber" 
-                placeholder="Enter one or more phone numbers, separated by commas"
-                rows="3"></textarea>
-        </section>
+    <!-- 🔍 INPUT SECTION -->
+    <section class="input-section">
+      <textarea
+        id="phoneNumber"
+        placeholder="Enter one or more phone numbers separated by commas"
+        rows="3"
+        aria-label="Enter customer phone numbers"
+      ></textarea>
+      <button id="enterBtn">Search</button>
+    </section>
 
-        <!-- User Location Input -->
-        <section class="input-box">
-            <input type="text" id="userLocation" placeholder="Enter Your Location or Auto-detect">
-        </section>
+    <!-- 🧾 RESULTS SECTION -->
+    <section id="resultsSection">
+      <div id="resultBox" class="result-box">
+        <p id="noResults">Enter phone numbers to search for customers...</p>
+        <!-- Customer cards will be dynamically added here via script.js -->
+        <div id="customerList" class="customer-list"></div>
+      </div>
+    </section>
 
-        <!-- Enter Button -->
-        <div class="button-container">
-            <button id="enterBtn">Search</button>
-        </div>
+    <!-- 🗺️ MAP SECTION -->
+    <section id="mapSection">
+      <!-- Map container for Leaflet -->
+      <div id="map"></div>
+    </section>
 
-        <!-- Results Section -->
-        <section id="resultsSection">
-            <!-- Left: Customer Details -->
-            <div id="resultBox" class="result-box">
-                <p>Results will appear here...</p>
-            </div>
+    <!-- 🕵️‍♂️ HIDDEN INPUT (used for device location tracking, not visible to user) -->
+    <input type="hidden" id="userLocation" />
 
-            <!-- Right: Leaflet Map Display -->
-            <div id="mapContainer" class="map-container"></div>
-        </section>
+    <!-- 🦶 FOOTER -->
+    <footer>
+      <p>Powered by OpenStreetMap & Leaflet | Built for Tanakpur Field Delivery System</p>
+    </footer>
+  </div>
 
-        <!-- Footer -->
-        <footer>
-            <p>Powered by Geolocation Data Set for Tanakpur | OpenStreetMap & Leaflet Routing</p>
-        </footer>
-    </div>
+  <!-- ✅ LEAFLET JS -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    crossorigin=""
+  ></script>
 
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- ✅ LEAFLET ROUTING MACHINE JS (for real road routes) -->
+  <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 
-    <!-- Leaflet Routing Machine JS -->
-    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+  <!-- ✅ MAIN APP SCRIPT -->
+  <script src="script.js"></script>
 
-    <!-- XLSX Library -->
-    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <!-- =====================================================
+    💡 FUNCTIONALITY OVERVIEW
+    -------------------------------------------------------
+    1️⃣ Loads 2 Excel files:
+        - geolocation data set for tanakpur.xlsx
+        - Order List.xlsx
 
-    <!-- Main JS App -->
-    <script type="module" src="script.js"></script>
+    2️⃣ Allows searching for multiple phone numbers.
+
+    3️⃣ Displays:
+        - Customer name, region, address
+        - Order List, Price
+        - Dynamic UPI QR Code for payment
+        - "Delivery Done" button for each customer to hide their order
+
+    4️⃣ Tracks your live device location:
+        - Arrow marker shows your position
+        - Rotates as device direction changes
+
+    5️⃣ Draws real routes (following streets) using Leaflet Routing Machine.
+
+    6️⃣ Supports multiple customers on same map.
+
+    ✅ For UPI Payment QR:
+       - Each order card includes QR (auto-generated)
+       - Replace YOUR_UPI_ID_HERE in script.js with your real UPI ID privately.
+  ====================================================== -->
 </body>
 </html>
