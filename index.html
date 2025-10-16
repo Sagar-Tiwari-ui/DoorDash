@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geo Lookup Portal - Tanakpur</title>
+    <meta name="description" content="Lookup and navigate to customers using phone numbers and geolocation mapping for Tanakpur.">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <!-- Leaflet Routing Machine CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+
+    <!-- Your custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+
+        <!-- Header -->
+        <header>
+            <h1>Geo Lookup Portal (Tanakpur)</h1>
+            <p class="subtitle">Search customers by mobile number & view location on map</p>
+        </header>
+
+        <!-- Input for Multiple Phone Numbers -->
+        <section class="input-box">
+            <textarea 
+                id="phoneNumber" 
+                placeholder="Enter one or more phone numbers, separated by commas"
+                rows="3"></textarea>
+        </section>
+
+        <!-- User Location Input -->
+        <section class="input-box">
+            <input type="text" id="userLocation" placeholder="Enter Your Location or Auto-detect">
+        </section>
+
+        <!-- Enter Button -->
+        <div class="button-container">
+            <button id="enterBtn">Search</button>
+        </div>
+
+        <!-- Results Section -->
+        <section id="resultsSection">
+            <!-- Left: Customer Details -->
+            <div id="resultBox" class="result-box">
+                <p>Results will appear here...</p>
+            </div>
+
+            <!-- Right: Leaflet Map Display -->
+            <div id="mapContainer" class="map-container"></div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>Powered by Geolocation Data Set for Tanakpur | OpenStreetMap & Leaflet Routing</p>
+        </footer>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Leaflet Routing Machine JS -->
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+
+    <!-- XLSX Library -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+    <!-- Main JS App -->
+    <script type="module" src="script.js"></script>
+</body>
+</html>
