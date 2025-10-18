@@ -1,0 +1,345 @@
+/* Reset default styles for consistency */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Root variables for consistent theming */
+:root {
+  --primary-color: #2c3e50; /* Dark blue for headers and buttons */
+  --secondary-color: #3498db; /* Bright blue for accents */
+  --background-color: #f4f7fa; /* Light gray background */
+  --card-bg: #ffffff; /* White for cards */
+  --text-color: #333333; /* Dark text */
+  --border-color: #e0e0e0; /* Light gray borders */
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  --border-radius: 8px; /* Rounded corners */
+  --success-color: #27ae60; /* Green for Delivery Done button */
+}
+
+/* Body and main container */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.app-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 20px auto;
+  padding: 0 20px;
+}
+
+/* Header Section */
+header {
+  text-align: center;
+  padding: 2rem 0;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+header p {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+/* Input Section */
+.input-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  background-color: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+#phoneNumber {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  resize: vertical;
+  min-height: 100px;
+  transition: border-color 0.3s ease;
+}
+
+#phoneNumber:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+#enterBtn {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#enterBtn:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+
+#enterBtn:active {
+  transform: translateY(0);
+}
+
+/* Results Section */
+#resultsSection {
+  margin-bottom: 2rem;
+}
+
+.result-box {
+  background-color: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  min-height: 100px;
+}
+
+#noResults {
+  font-size: 1rem;
+  color: var(--text-color);
+  text-align: center;
+  margin: 0;
+}
+
+.customer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.customer-card {
+  background-color: var(--card-bg);
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: opacity 0.3s ease;
+}
+
+.customer-card.hidden {
+  display: none; /* Hides the card when "Delivery Done" is clicked */
+}
+
+.customer-card h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.customer-card p {
+  font-size: 0.95rem;
+  margin: 0.25rem 0;
+}
+
+.customer-card .qr-code {
+  max-width: 120px;
+  margin: 0.5rem auto;
+}
+
+.delivery-done-btn {
+  padding: 0.8rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background-color: var(--success-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.delivery-done-btn:hover {
+  background-color: #219653;
+  transform: translateY(-2px);
+}
+
+.delivery-done-btn:active {
+  transform: translateY(0);
+}
+
+/* Map Section */
+#mapSection {
+  margin-bottom: 2rem;
+}
+
+#map {
+  height: 500px;
+  width: 100%;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+}
+
+/* Footer Section */
+footer {
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 0.9rem;
+  color: #777;
+  border-top: 1px solid var(--border-color);
+}
+
+/* Responsive Design */
+
+/* Tablets (768px and below) */
+@media (max-width: 768px) {
+  .app-container {
+    margin: 10px;
+    padding: 0 10px;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  header p {
+    font-size: 0.9rem;
+  }
+
+  #phoneNumber {
+    font-size: 0.9rem;
+    padding: 0.8rem;
+  }
+
+  #enterBtn {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .customer-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .customer-card p {
+    font-size: 0.9rem;
+  }
+
+  .delivery-done-btn {
+    padding: 0.7rem;
+    font-size: 0.85rem;
+  }
+
+  #map {
+    height: 400px;
+  }
+}
+
+/* Mobile (480px and below) */
+@media (max-width: 480px) {
+  header {
+    padding: 1.5rem 0;
+  }
+
+  header h1 {
+    font-size: 1.2rem;
+  }
+
+  header p {
+    font-size: 0.8rem;
+  }
+
+  .input-section {
+    padding: 1rem;
+  }
+
+  #phoneNumber {
+    font-size: 0.85rem;
+    min-height: 80px;
+  }
+
+  #enterBtn {
+    width: 100%;
+    padding: 0.8rem;
+  }
+
+  .result-box {
+    padding: 1rem;
+  }
+
+  .customer-card {
+    padding: 0.8rem;
+  }
+
+  .customer-card h3 {
+    font-size: 1rem;
+  }
+
+  .customer-card p {
+    font-size: 0.85rem;
+  }
+
+  .delivery-done-btn {
+    width: 100%;
+    padding: 0.7rem;
+    font-size: 0.8rem;
+  }
+
+  .customer-card .qr-code {
+    max-width: 100px;
+  }
+
+  #map {
+    height: 300px;
+  }
+
+  footer {
+    font-size: 0.8rem;
+  }
+}
+
+/* Leaflet Map Customizations */
+.leaflet-container {
+  background: #f4f7fa; /* Match app background */
+}
+
+.leaflet-control-attribution {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+/* Ensure Leaflet routing controls look consistent */
+.leaflet-routing-container {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  font-family: 'Inter', sans-serif;
+}
+
+/* QR Code Styling */
+.qr-code {
+  display: block;
+  margin: 1rem auto;
+  max-width: 150px;
+}

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel - Order Management</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="admin_style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <header>
+      <h1>🛒 Admin Panel - Order Management</h1>
+      <p>View grocery inventory and add items to customer orders</p>
+      <a href="index.html"><button>Back to Main</button></a>
+    </header>
+    <section class="input-section">
+      <h2>Add Items to Customer Order</h2>
+      <form id="orderForm">
+        <label for="mobileNumber">Customer Mobile Number:</label>
+        <input type="text" id="mobileNumber" placeholder="Enter customer mobile number" required />
+        <button type="submit">Submit Cart</button>
+      </form>
+    </section>
+    <section id="cartSection">
+      <h2>Cart</h2>
+      <table id="cartTable">
+        <thead>
+          <tr>
+            <th>Inventory Item</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody id="cartTableBody"></tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3">Total</td>
+            <td id="cartTotal">₹0.00</td>
+          </tr>
+        </tfoot>
+      </table>
+    </section>
+    <section id="groceryListSection">
+      <h2>Grocery Inventory</h2>
+      <table id="groceryTable">
+        <thead>
+          <tr>
+            <th>Sr. No.</th>
+            <th>Inventory Item</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Quantity</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="groceryTableBody"></tbody>
+      </table>
+    </section>
+    <footer>
+      <p>Powered by XLSX | Built for Tanakpur Order Management System</p>
+    </footer>
+  </div>
+  <script>
+    let groceryData = [];
+    let cart = [];
+    let existingOrders = [];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadGroceryList();
+      loadExistingOrders();
+      document.getElementById('orderForm').addEventListener('submit', handleSubmitCart);
+    });
+
+    async function loadGroceryList() {
+      try {
+        const response = await fetch('Inventory List with Price.xlsx');
+        const arrayBuffer = await response.arrayBuffer();
+        const workbook = XLSX.read(arrayBuffer, { type: 'array', cellText: false, cellDates: true });
+        const sheet = workbook.Sheets[workbook.SheetNames[0]];
+        groceryData = XLSX.utils.sheet_to_json(sheet, { raw: false });
+        console.log('Inventory Data:', groceryData);
+        displayGroceryList(groceryData);
+      } catch (error) {
+        console.error('Error loading inventory:', error);
+        alert('Failed to load inventory. Ensure Inventory List with Price.xlsx exists.');
+      }
+    }
+
+    async function loadExistingOrders() {
+      try {
+        const response = await fetch('Order List.xlsx');
+        const arrayBuffer = await response.arrayBuffer();
+        const workbook = XLSX.read(arrayBuffer, { type: 'array', cellText: false, cellDates: true });
+        const sheet = workbook.Sheets[workbook.SheetNames[0]];
+        existingOrders = XLSX.utils.sheet_to_json(sheet, { raw: false });
+        console.log('Existing Orders:', existingOrders);
+      } catch (error) {
+        console.warn('No existing Order List.xlsx found or error loading:', error);
+        existingOrders = [];
+      }
+    }
+
+    function displayGroceryList(data) {
+      const tbody = document.getElementById('groceryTableBody');
+      tbody.innerHTML = '';
+      data.forEach(row => {
+        const price = parseFloat(row['Price']);
+        const formattedPrice = isNaN(price) ? '-' : `₹${price.toFixed(2)}`;
+        console.log('Processing row:', row, 'Formatted Price:', formattedPrice);
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${row['Sr. No.'] || '-'}</td>
+          <td>${row['Inventory Item'] || '-'}</td>
+          <td>${formattedPrice}</td>
+          <td>${row['Image'] ? `<a href="${row['Image']}" target="_blank"><img src="${row['Image']}" alt="${row['Inventory Item'] || 'Image'}" style="width: 50px; height: auto;" /></a>` : '-'}</td>
+          <td><input type="number" class="quantity-input" min="1" value="1" style="width: 60px;"></td>
+          <td><button class="add-to-cart" data-item='${JSON.stringify({ name: row['Inventory Item'], price: isNaN(price) ? 0 : price })}'>Add to Cart</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', () => {
+          const item = JSON.parse(button.getAttribute('data-item'));
+          const quantityInput = button.parentElement.previousElementSibling.querySelector('.quantity-input');
+          const quantity = parseInt(quantityInput.value) || 1;
+          cart.push({ ...item, quantity });
+          updateCartDisplay();
+        });
+      });
+    }
+
+    function updateCartDisplay() {
+      const tbody = document.getElementById('cartTableBody');
+      tbody.innerHTML = '';
+      cart.forEach(item => {
+        const tr = document.createElement('tr');
+        const itemTotal = item.price * item.quantity;
+        tr.innerHTML = `
+          <td>${item.name}</td>
+          <td>₹${item.price.toFixed(2)}</td>
+          <td>${item.quantity}</td>
+          <td>₹${itemTotal.toFixed(2)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      document.getElementById('cartTotal').textContent = `₹${total.toFixed(2)}`;
+    }
+
+    function handleSubmitCart(event) {
+      event.preventDefault();
+      const mobileNumber = document.getElementById('mobileNumber').value.trim();
+
+      if (cart.length === 0) {
+        alert('Cart is empty. Add items before submitting.');
+        return;
+      }
+
+      try {
+        // Combine ordered items into a single string
+        const orderList = cart.map(item => `${item.name} (Qty: ${item.quantity})`).join(', ');
+        const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+        // Find the customer by Mobile Number
+        const customerIndex = existingOrders.findIndex(order => order['Mobile Number'] === mobileNumber);
+        let updatedOrders = [...existingOrders];
+
+        if (customerIndex >= 0) {
+          // Update existing customer's Order List and Price
+          updatedOrders[customerIndex] = {
+            ...updatedOrders[customerIndex],
+            'Order List': orderList,
+            'Price': totalPrice
+          };
+        } else {
+          // Add new customer with placeholder values for other fields
+          updatedOrders.push({
+            'Sr. No.': existingOrders.length + 1,
+            'Mobile Number': mobileNumber,
+            'Name': '',
+            'Region': '',
+            'Address': '',
+            'lattitude longitude': '',
+            'Order List': orderList,
+            'Price': totalPrice
+          });
+        }
+
+        // Create a new workbook and worksheet
+        const ws = XLSX.utils.json_to_sheet(updatedOrders);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Orders');
+
+        // Generate Excel file and trigger download
+        XLSX.writeFile(wb, 'Order List.xlsx');
+
+        // Reset cart and form
+        cart = [];
+        updateCartDisplay();
+        document.getElementById('orderForm').reset();
+        alert(`Order for customer ${mobileNumber} saved as Order List.xlsx!`);
+      } catch (error) {
+        console.error('Error generating Excel file:', error);
+        alert('Failed to save order. Please try again.');
+      }
+    }
+  </script>
+</body>
+</html>
