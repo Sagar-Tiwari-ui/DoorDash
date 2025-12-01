@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel - Order Management</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- XLSX for Excel -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+  <!-- jsPDF + AutoTable -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="orderUpdate.css">
+</head>
+
+<body>
+  <div class="app-container">
+    <header>
+      <h1><i class="fas fa-shopping-cart"></i> Admin Panel - Order Management</h1>
+      <p>View grocery inventory and add items to customer orders</p>
+      <a href="index.html"><button>Back to Main</button></a>
+    </header>
+
+    <!-- ---------------- Input Section ---------------- -->
+    <section class="input-section">
+      <h2>Add Items to Customer Order</h2>
+      <form id="orderForm">
+        <label for="mobileNumber">Customer Mobile Number:</label>
+        <input type="text" id="mobileNumber" placeholder="Enter customer mobile number" required />
+        <button type="submit">Submit Cart</button>
+      </form>
+      <button id="printReceiptBtn">Print Receipt</button>
+    </section>
+
+    <!-- ---------------- Cart Section ---------------- -->
+    <section id="cartSection">
+      <h2>Cart</h2>
+      <table id="cartTable">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody id="cartTableBody"></tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3">Total</td>
+            <td id="cartTotal">₹0.00</td>
+          </tr>
+        </tfoot>
+      </table>
+    </section>
+
+    <!-- ---------------- Grocery Inventory Section ---------------- -->
+    <section id="groceryListSection">
+      <h2>Grocery Inventory</h2>
+
+      <!-- ⭐⭐⭐ ADDED SEARCH BAR ⭐⭐⭐ -->
+      <div style="margin-bottom: 15px;">
+        <input 
+          id="searchItem" 
+          type="text" 
+          placeholder="Search product..." 
+          style="
+            width: 260px;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            outline: none;
+            font-size: 15px;">
+      </div>
+
+      <table id="groceryTable">
+        <thead>
+          <tr>
+            <th>Sr. No.</th>
+            <th>Inventory Item</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Category</th>
+            <th>Quantity</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="groceryTableBody"></tbody>
+      </table>
+    </section>
+
+    <footer>
+      <p>Powered by OpenStreetMap, Leaflet & Firebase | Built for Tanakpur Order Management System</p>
+    </footer>
+  </div>
+
+  <!-- JS -->
+  <script type="module" src="orderUpdate.js"></script>
+</body>
+</html>

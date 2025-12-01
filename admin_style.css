@@ -1,0 +1,226 @@
+/* Reset default styles for consistency */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Ensures padding/borders don't add to element size */
+}
+
+/* Apply Inter font globally and set base styles */
+body {
+  font-family: 'Inter', sans-serif; /* Uses Inter font */
+  font-size: 16px; /* Base font size */
+  line-height: 1.5; /* Comfortable line spacing */
+  color: #333; /* Dark gray text */
+  background-color: #f5f5f5; /* Light gray background */
+}
+
+/* Main container */
+.app-container {
+  max-width: 1200px; /* Limits content width */
+  margin: 0 auto; /* Centers content */
+  padding: 20px; /* Adds spacing */
+}
+
+/* Header styles */
+header {
+  text-align: center; /* Centers header content */
+  padding: 20px 0; /* Vertical spacing */
+  background-color: #ffffff; /* White background */
+  border-bottom: 1px solid #ddd; /* Subtle border */
+  margin-bottom: 20px; /* Space below */
+}
+
+header h1 {
+  font-size: 24px; /* Larger title */
+  font-weight: 700; /* Bold */
+  color: #2c3e50; /* Darker color */
+}
+
+header p {
+  font-size: 16px; /* Smaller subtitle */
+  color: #666; /* Lighter gray */
+  margin-top: 8px; /* Space above */
+}
+
+/* Button styles */
+button {
+  background-color: #3498db; /* Blue background */
+  color: #ffffff; /* White text */
+  border: none; /* No border */
+  padding: 10px 20px; /* Padding */
+  font-size: 16px; /* Readable text */
+  font-weight: 600; /* Semi-bold */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Hand cursor */
+  transition: background-color 0.3s ease; /* Smooth hover */
+}
+
+button:hover {
+  background-color: #2980b9; /* Darker blue */
+}
+
+/* Admin button styling */
+#adminBtn {
+  background-color: #e74c3c; /* Red for restricted access */
+  margin-top: 10px; /* Space above */
+}
+
+#adminBtn:hover {
+  background-color: #c0392b; /* Darker red */
+}
+
+/* Add to cart button styling */
+.add-to-cart {
+  background-color: #2ecc71; /* Green for add to cart */
+  padding: 8px 16px; /* Smaller padding */
+  font-size: 14px; /* Smaller text */
+}
+
+.add-to-cart:hover {
+  background-color: #27ae60; /* Darker green */
+}
+
+/* Input section */
+.input-section {
+  margin: 20px 0; /* Vertical spacing */
+  background-color: #ffffff; /* White background */
+  padding: 20px; /* Inner spacing */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Form inputs */
+.input-section label {
+  display: block; /* Labels on new line */
+  font-weight: 600; /* Semi-bold */
+  margin-bottom: 5px; /* Space below */
+}
+
+.input-section input {
+  width: 100%; /* Full width */
+  padding: 8px; /* Padding */
+  font-size: 16px; /* Readable text */
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 5px; /* Rounded corners */
+  margin-bottom: 10px; /* Space between */
+}
+
+/* Results section (index.html) */
+#resultsSection {
+  margin: 20px 0; /* Vertical spacing */
+}
+
+.result-box {
+  background-color: #ffffff; /* White background */
+  padding: 20px; /* Inner spacing */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+#noResults {
+  color: #666; /* Gray text */
+  text-align: center; /* Centered */
+}
+
+/* Customer list (index.html) */
+.customer-list {
+  margin-top: 10px; /* Space above */
+}
+
+/* Map section (index.html) */
+#mapSection {
+  margin: 20px 0; /* Vertical spacing */
+}
+
+#map {
+  height: 400px; /* Fixed height */
+  width: 100%; /* Full width */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Grocery and cart sections (admin.html) */
+#groceryListSection, #cartSection {
+  margin: 20px 0; /* Vertical spacing */
+}
+
+#groceryListSection h2, #cartSection h2 {
+  font-size: 20px; /* Section heading size */
+  font-weight: 600; /* Semi-bold */
+  margin-bottom: 10px; /* Space below */
+}
+
+table {
+  width: 100%; /* Full width */
+  border-collapse: collapse; /* No gaps between cells */
+  background-color: #ffffff; /* White background */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+th, td {
+  padding: 12px; /* Padding */
+  text-align: left; /* Left-aligned */
+  border-bottom: 1px solid #ddd; /* Row border */
+}
+
+th {
+  background-color: #f1f1f1; /* Light gray header */
+  font-weight: 600; /* Semi-bold */
+}
+
+td img {
+  max-width: 50px; /* Thumbnail size */
+  height: auto; /* Maintains aspect ratio */
+  border-radius: 4px; /* Rounded corners */
+}
+
+/* Cart table footer */
+tfoot td {
+  font-weight: 600; /* Bold for total */
+  background-color: #f1f1f1; /* Light gray */
+}
+
+/* Footer styles */
+footer {
+  text-align: center; /* Centers text */
+  padding: 20px 0; /* Vertical spacing */
+  color: #666; /* Gray text */
+  font-size: 14px; /* Smaller text */
+  border-top: 1px solid #ddd; /* Top border */
+  margin-top: 20px; /* Space above */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 10px; /* Reduced padding */
+  }
+
+  header h1 {
+    font-size: 20px; /* Smaller title */
+  }
+
+  header p {
+    font-size: 14px; /* Smaller subtitle */
+  }
+
+  button {
+    padding: 8px 16px; /* Smaller padding */
+    font-size: 14px; /* Smaller text */
+  }
+
+  .add-to-cart {
+    padding: 6px 12px; /* Smaller button */
+    font-size: 12px; /* Smaller text */
+  }
+
+  #map {
+    height: 300px; /* Smaller map */
+  }
+
+  th, td {
+    padding: 8px; /* Reduced padding */
+    font-size: 14px; /* Smaller text */
+  }
+}

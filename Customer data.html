@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Customer Management Dashboard | Tanakpur Admin</title>
+
+  <!-- Icon & Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="customer-data.css">
+
+</head>
+
+<body>
+
+  <div class="button-container">
+    <a href="Order update.html" class="button">Customer Order Update</a>
+  </div>
+
+  <form id="customerForm">
+    <div class="input-group">
+      <label for="mobileNumber">Mobile Number</label>
+      <input type="tel" id="mobileNumber" pattern="[0-9]{10}" required>
+    </div>
+
+    <div class="input-group">
+      <label for="name">Name</label>
+      <input type="text" id="name">
+    </div>
+
+    <div class="input-group">
+      <label for="houseNumber">House Number</label>
+      <input type="text" id="houseNumber">
+    </div>
+
+    <div class="input-group">
+      <label for="region">Region</label>
+      <input type="text" id="region">
+    </div>
+
+    <div class="input-group">
+      <label for="address">Address</label>
+      <textarea id="address" rows="2"></textarea>
+    </div>
+
+    <div class="input-group">
+      <label for="latLng">Latitude, Longitude</label>
+      <input type="text" id="latLng">
+    </div>
+
+    <button type="submit">Add/Update Customer</button>
+    <div id="message" class="message"></div>
+  </form>
+
+  <!-- SEARCH SECTION -->
+  <div id="searchSection">
+    <div class="input-group">
+      <label for="searchMobile">Search Mobile Number</label>
+      <input type="tel" id="searchMobile" pattern="[0-9]{10}">
+    </div>
+
+    <button type="button" id="searchBtn">Search</button>
+    <div id="searchMessage" class="message"></div>
+
+    <div id="searchResult">
+      <h3><i class="fas fa-user"></i> Customer Details</h3>
+      <p><strong>Name:</strong> <span id="resultName"></span></p>
+      <p><strong>House Number:</strong> <span id="resultHouse"></span></p>
+      <p><strong>Region:</strong> <span id="resultRegion"></span></p>
+      <p><strong>Address:</strong> <span id="resultAddress"></span></p>
+      <p><strong>Lat/Lng:</strong> <span id="resultLatLng"></span></p>
+    </div>
+  </div>
+
+  <!-- FIREBASE SCRIPT -->
+  <script type="module" src="customer-data.js"></script>
+
+</body>
+</html>

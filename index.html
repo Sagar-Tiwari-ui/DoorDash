@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Geo Order & Route Tracker - Tanakpur</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+
+  <!-- Leaflet Routing Machine CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- QR Code Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+
+  <!-- YOUR SAME STYLES (unchanged) -->
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      color: #333;
+    }
+    .app-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    header {
+      text-align: center;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    header h1 { margin: 0; color: #333; font-size: 24px; }
+    header p { margin: 5px 0 15px; color: #666; }
+
+    #adminBtn {
+      background: #2196F3; color: white; border: none;
+      padding: 10px 20px; border-radius: 6px;
+      cursor: pointer; font-size: 16px; font-weight: 600;
+    }
+
+    .input-section {
+      background: white; padding: 20px; border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+
+    .input-section textarea {
+      width: 100%; padding: 10px;
+      border: 1px solid #ccc; border-radius: 6px;
+      font-size: 15px;
+    }
+
+    .input-section button {
+      width: 100%; padding: 12px;
+      background: #4CAF50; color: white; border: none; border-radius: 6px;
+      font-size: 16px; margin-top: 10px; cursor: pointer;
+    }
+
+    #resultsSection {
+      background: white; padding: 20px;
+      border-radius: 12px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+
+    #mapSection {
+      height: 400px; margin-bottom: 20px;
+    }
+
+    #map {
+      height: 100%; border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    footer {
+      text-align: center; padding: 10px;
+      color: #fff; font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app-container">
+    
+    <!-- Header -->
+    <header>
+      <h1><i class="fas fa-map-marked-alt"></i> Geo + Order Tracker (Tanakpur)</h1>
+      <p>Search customers, view routes, track your live location, and collect payments</p>
+      <button id="adminBtn">Admin Panel</button>
+    </header>
+
+    <!-- Input -->
+    <section class="input-section">
+      <textarea id="phoneNumber" placeholder="Enter one or more phone numbers separated by commas" rows="3"></textarea>
+      <button id="enterBtn">Search</button>
+    </section>
+
+    <!-- Results -->
+    <section id="resultsSection">
+      <div id="resultBox" class="result-box">
+        <p id="noResults">Enter phone numbers to search for customers...</p>
+        <div id="customerList" class="customer-list"></div>
+      </div>
+    </section>
+
+    <!-- Map -->
+    <section id="mapSection">
+      <div id="map"></div>
+    </section>
+
+    <input type="hidden" id="userLocation" />
+
+    <!-- Footer -->
+    <footer>
+      <p>Powered by OpenStreetMap & Leaflet | Built for Tanakpur Field Delivery System</p>
+    </footer>
+  </div>
+
+  <!-- Firebase (NO LOGIN REQUIRED) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAcfUIEfXQinRokagk0a_e4h1uoz3qt3cQ",
+      authDomain: "parchuna-wala.firebaseapp.com",
+      projectId: "parchuna-wala",
+      storageBucket: "parchuna-wala.firebasestorage.app",
+      messagingSenderId: "55576084655",
+      appId: "1:55576084655:web:93343d235f30963fbad45a",
+      measurementId: "G-6EHGD82VM2"
+    };
+
+    // Initialize Firebase normally
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Admin Panel button
+    document.getElementById("adminBtn").addEventListener("click", () => {
+      window.location.href = "admin.html";
+    });
+  </script>
+
+  <!-- Leaflet -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+
+  <!-- Your JS -->
+  <script type="module" src="script.js"></script>
+
+</body>
+</html>

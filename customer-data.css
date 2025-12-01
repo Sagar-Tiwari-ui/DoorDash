@@ -1,0 +1,102 @@
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  font-family: 'Poppins', sans-serif;
+}
+
+.button-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+.button {
+  display: inline-block;
+  padding: 18px 35px;
+  font-size: 18px;
+  color: #fff;
+  font-weight: 600;
+  background: linear-gradient(45deg, #6b7280, #9ca3af);
+  border-radius: 10px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.button:hover {
+  background: linear-gradient(45deg, #9ca3af, #6b7280);
+}
+
+form {
+  background: white;
+  padding: 25px;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #43a047;
+}
+
+.message {
+  margin-top: 10px;
+  text-align: center;
+  font-weight: 600;
+}
+
+#searchSection {
+  margin-top: 20px;
+  width: 90%;
+  max-width: 500px;
+}
+
+#searchSection button {
+  background: #2196F3;
+}
+
+#searchSection button:hover {
+  background: #1976D2;
+}
+
+#searchResult {
+  margin-top: 20px;
+  background: #f0f8ff;
+  padding: 15px;
+  border-left: 4px solid #2196F3;
+  border-radius: 8px;
+  display: none;
+}

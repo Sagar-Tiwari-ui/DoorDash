@@ -1,0 +1,169 @@
+/* orderUpdate.css */
+
+/* ---------------- BODY & CONTAINER ---------------- */
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: #333;
+}
+
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* ---------------- HEADER ---------------- */
+header {
+  text-align: center;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+header h1 {
+  margin: 0;
+  color: #333;
+  font-size: 24px;
+}
+
+header p {
+  margin: 5px 0 15px;
+  color: #666;
+}
+
+header button {
+  background: #2196F3;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+header button:hover {
+  background: #1976D2;
+}
+
+/* ---------------- SECTIONS ---------------- */
+.input-section, #cartSection, #groceryListSection {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+.input-section h2, #cartSection h2, #groceryListSection h2 {
+  margin: 0 0 15px;
+  color: #2196F3;
+}
+
+/* ---------------- FORMS ---------------- */
+.input-section form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+input, textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.input-section button, .add-to-cart, #printReceiptBtn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.input-section button {
+  background: #4CAF50;
+  color: white;
+}
+
+.input-section button:hover {
+  background: #43a047;
+}
+
+.add-to-cart {
+  background: #4CAF50;
+  color: white;
+}
+
+.add-to-cart:hover {
+  background: #43a047;
+}
+
+#printReceiptBtn {
+  background: #FF9800;
+  color: white;
+  margin-top: 15px;
+}
+
+#printReceiptBtn:hover {
+  background: #f57c00;
+}
+
+/* ---------------- TABLES ---------------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background: #f4f4f4;
+  font-weight: 600;
+}
+
+.quantity-input {
+  width: 60px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* ---------------- FOOTER ---------------- */
+footer {
+  text-align: center;
+  padding: 10px;
+  color: #fff;
+  font-size: 14px;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 768px) {
+  .input-section form {
+    flex-direction: column;
+  }
+  input {
+    width: 100%;
+  }
+  .quantity-input {
+    width: 100%;
+  }
+}
