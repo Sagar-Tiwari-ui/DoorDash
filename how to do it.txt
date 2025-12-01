@@ -1,7 +1,0 @@
-nodejs installation as path
-
-in cmd search your folder and npm init -y
-
-then npm install express cors xlsx
-
-in terminal in vs code use node server.js
